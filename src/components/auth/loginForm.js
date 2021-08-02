@@ -17,28 +17,59 @@ class LoginForm extends Component {
         })
     }
 
-    handleLogin(event) {
+    // handleLogin(event) {
+    //     event.preventDefault()
+
+    //     axios.post('http://localhost:3001/api/v1/user_token', {
+    //         user: {
+    //             email: this.state.email,
+    //             password: this.state.password
+    //         }
+
+    //     },
+    //         { withCredentials: true }
+    //     )
+    //         .then(response => {
+    //             console.log("response", response)
+    //             if (response.data.user) {
+    //                 this.props.history.push("/dashboard")
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.log("registration error", error,)
+    //         })
+    // }
+
+    handleLogin (event) {
         event.preventDefault()
-
-        axios.post('http://localhost:3001/api/v1/login', {
-            user: {
-                email: this.state.email,
-                password: this.state.password
-            }
-
-        },
-            { withCredentials: true }
-        )
-            .then(response => {
-                console.log("response", response)
-                if (response.data.user) {
-                    this.props.history.push("/dashboard")
-                }
-            })
-            .catch(error => {
-                console.log("registration error", error,)
-            })
-    }
+        const {email, password} = this.state
+        const request = {"auth": {"email": email, "password": password}}
+        console.log(request)
+        fetch("http://localhost:3001/api/v1/user_token", {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request),
+        })
+        .then(result => {
+            console.log(result)
+            localStorage.setItem("jwt", result.jwt)
+        })
+        .catch(error => {
+            console.log(error)
+        }) 
+        // $.ajax({
+        //   url: "http://localhost:3000/api/v1/user_token",
+        //   type: "POST",
+        //   data: request,
+        //   dataType: "json",
+        //   success: function (result) {
+        //     console.log(result)
+        //     localStorage.setItem("jwt", result.jwt)
+        //   }
+        // })
+      }    
 
     render() {
         return (

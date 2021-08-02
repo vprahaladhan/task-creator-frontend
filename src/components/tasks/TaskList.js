@@ -10,7 +10,19 @@ class TaskList extends Component {
         //items[0] = #Task 1
         //items[1] = #Task 2
         this.state = {
+            tasks: []
         }
+
+        
+    }
+
+    componentDidMount() {
+        //Get the items from the API
+        this.getTasks()
+    }
+
+    getTasks = () => {
+        
     }
 
     

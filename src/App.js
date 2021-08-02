@@ -58,6 +58,7 @@ class App extends Component {
 
         </header>
         <TaskList />
+        <LoginForm/>
         <Router>
             
             <Switch>
