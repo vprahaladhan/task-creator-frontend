@@ -1,12 +1,15 @@
+
 import React, { Component } from 'react'
 import axios from 'axios'
+import history from '../../history'
 
 class SignUpForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            password_confirmation: ''
         }
         this.handleSignup = this.handleSignup.bind(this)
     }
@@ -20,10 +23,11 @@ class SignUpForm extends Component {
     handleSignup(event) {
         event.preventDefault()
 
-        axios.post('http://localhost:3001/api/v1/register', {
+        axios.post('http://localhost:3001/api/register', {
             user: {
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+                password_confirmation: this.state.password_confirmation
             }
 
         },
@@ -34,6 +38,7 @@ class SignUpForm extends Component {
                 if (response.data.status === 'created') {
                     console.log("Created:", response.data)
                 }
+                history.push("/")
             })
             .catch(error => {
                 console.log("registration error", error,)
@@ -49,12 +54,18 @@ class SignUpForm extends Component {
                         value={this.state.email}
                         onChange={this.handleChange}>
                     </input>
+                    <br/>
                     <input name="password"
                         type="password"
                         value={this.state.password}
                         onChange={this.handleChange}>
                     </input>
-
+                    <br/>
+                    <input name="password_conformation"
+                        type="password"
+                        value={this.state.password_conformation}
+                        onChange={this.handleChange}>
+                    </input>
                     <button type="submit">
                         Submit
                     </button>
