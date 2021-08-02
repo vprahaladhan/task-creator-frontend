@@ -1,11 +1,11 @@
+import axios from "axios"
+
 export const signup = user => (
-    fetch("http://localhost:3001/api/v1/user_token", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user),
-    })
+    axios.post("http://localhost:3001/api/users", {
+        user
+    },
+        { withCredentials: true },
+    )
         .then(result => {
             console.log(result)
             //   localStorage.setItem("jwt", result.jwt)
@@ -18,8 +18,10 @@ export const signup = user => (
         })
 )
 
+
+
 export const login = user => (
-    fetch("http://localhost:3001/api/v1/user_token", {
+    fetch("http://localhost:3001/api/v1/users", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

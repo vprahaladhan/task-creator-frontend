@@ -78,18 +78,17 @@ handleLogin(event) {
 
         </header>
         <TaskList />
-        <LoginForm handleChange={this.handleChange}
-                  handleLogin={this.handleLogin}
-                  state={this.state}/>
         <Router>
             
             <Switch>
               {/* <Route
                 exact path={"/"}
                 render={props => (
-                  <Home
+                  <LoginForm
                     {...props}
-                  // handleLogout={this.handleLogout}
+                    handleChange={this.handleChange}
+                    handleLogin={this.handleLogin}
+                    state={this.state}
 
                   />
                 )} /> */}
