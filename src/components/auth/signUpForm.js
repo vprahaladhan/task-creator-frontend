@@ -11,7 +11,7 @@ class SignUpForm extends Component {
             password: '',
             password_confirmation: ''
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSignup = this.handleSignup.bind(this)
     }
 
     handleChange = (event) => {
@@ -20,11 +20,27 @@ class SignUpForm extends Component {
         })
     }
 
-    handleSubmit(event) {
+    handleSignup(event) {
         event.preventDefault()
-        const user = Object.assign({}, this.state);
-        this.props.processForm(this.state).
-        then(() => this.props.history.push('/'));
+
+        axios.post('http://localhost:3001/api/v1/register', {
+            user: {
+                email: this.state.email,
+                password: this.state.password
+            }
+
+        },
+            { withCredentials: true }
+        )
+            .then(response => {
+                console.log("response", response)
+                if (response.data.status === 'created') {
+                    console.log("Created:", response.data)
+                }
+            })
+            .catch(error => {
+                console.log("registration error", error,)
+            })
     }
 
     handleErrors(string){
@@ -35,8 +51,13 @@ class SignUpForm extends Component {
     render() {
         return (
             <div className="signup-form">
+<<<<<<< HEAD
                 <form onSubmit={this.handleSubmit}>
                 <div className="errors">{this.handleErrors("Email")}</div>
+=======
+                <form onSubmit={this.handleSignup}>
+
+>>>>>>> parent of 526b3e0... Hooked up redux
                     <input name="email"
                         value={this.state.email}
                         onChange={this.handleChange}>

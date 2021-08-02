@@ -5,15 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import history from "./history";
 import { Router } from 'react-router-dom';
-import {Provider} from 'react-redux'
-import store from './store/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* Provide redux store */}
-    <Provider store={store}>
+    <Router history={history}>
     <App />
-    </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
