@@ -8,7 +8,7 @@ class SignUpForm extends Component {
             email: '',
             password: ''
         }
-        this.handleSignup = this.handleSignup.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange = (event) => {
@@ -17,33 +17,17 @@ class SignUpForm extends Component {
         })
     }
 
-    handleSignup(event) {
+    handleSubmit(event) {
         event.preventDefault()
-
-        axios.post('http://localhost:3001/api/v1/register', {
-            user: {
-                email: this.state.email,
-                password: this.state.password
-            }
-
-        },
-            { withCredentials: true }
-        )
-            .then(response => {
-                console.log("response", response)
-                if (response.data.status === 'created') {
-                    console.log("Created:", response.data)
-                }
-            })
-            .catch(error => {
-                console.log("registration error", error,)
-            })
+        const user = Object.assign({}, this.state);
+        this.props.processForm(this.state).
+        then(() => this.props.history.push('/'));
     }
 
     render() {
         return (
             <div className="signup-form">
-                <form onSubmit={this.handleSignup}>
+                <form onSubmit={this.handleSubmit}>
 
                     <input name="email"
                         value={this.state.email}

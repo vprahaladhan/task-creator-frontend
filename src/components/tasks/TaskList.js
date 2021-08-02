@@ -46,10 +46,7 @@ class TaskList extends Component {
             <div className="task-list">
                 <NewTaskForm/>
                 <ul >
-                    {this.state.tasks.map((task) => {
-                        <li key={task.id}>{task.name}</li>
-                    })
-                }
+                    <li>Hi</li>
                 </ul>
             </div>
         )
