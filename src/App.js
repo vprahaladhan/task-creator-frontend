@@ -7,58 +7,80 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import NavBar from './components/NavBar';
 import SignUpForm from './components/auth/signUpForm';
 import LoginForm from './components/auth/loginForm';
+import history from './history';
 //User Auth
-
-
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      isLoggedIn: false
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   
   }
-
 
   handleChange = (event) => {
     this.setState({
         [event.target.name]: event.target.value
     })
 }
- 
+handleLogin(event) {
+  event.preventDefault()
+  console.log("Login function")
+  const {email, password} = this.state
+  const request = {"auth": {"email": email, "password": password}}
+  console.log(request)
+  fetch("http://localhost:3001/api/v1/user_token", {
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(request),
+  })
+  .then(result => {
+      console.log(result)
+      localStorage.setItem("jwt", result.jwt)
+      this.setState(({
+        isLoggedIn: true
+      }));
+      history.push("/")
+  })
+  .catch(error => {
+      console.log(error)
+  })
+} 
 
-  handleLogout(event) {
-    event.preventDefault()
 
-    axios.delete('http://localhost:3001/api/v1/logout', 
-      { withCredentials: true }
-    )
-      .then(response => {
-        console.log("response", response)
-        if (response.data.status === 'created') {
-          console.log("Created:", response.data)
-        }
-      })
-      .catch(error => {
-        console.log("registration error", error,)
-      })
-  }
+    // # withCredentials: true 
+    handleLogout() {
+      localStorage.removeItem("jwt")
+      this.setState(({
+        isLoggedIn: false
+      }));
+      history.push("/")
+    }
 
   render() {
     return (
       <div className="App">
-        <NavBar />
+        <NavBar 
+          handleLogout={this.handleLogout} 
+          isLoggedIn={this.state.isLoggedIn} />
         <header className="App-header">
           <h1>Tasks</h1>
           <hr />
 
         </header>
         <TaskList />
-        <LoginForm/>
+        <LoginForm handleChange={this.handleChange}
+                  handleLogin={this.handleLogin}
+                  state={this.state}/>
         <Router>
             
             <Switch>
@@ -102,7 +124,9 @@ class App extends Component {
                 <LoginForm
                   {...props}
                   handleChange={this.handleChange}
-
+                  handleLogin={this.handleLogin}
+                  email={this.state.email}
+                  password={this.state.password}
                 />
               )} />
 {/* 
@@ -119,11 +143,6 @@ class App extends Component {
             </Switch>
 
           </Router>
-         <form onSubmit={this.handleLogout}>
-            <button type="submit">
-              Logout
-            </button>
-          </form>
 
         </div>
 

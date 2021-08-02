@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import history from '../../history'
 
 class LoginForm extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            email: '',
-            password: ''
-        }
-        this.handleLogin = this.handleLogin.bind(this)
     }
+
 
     handleChange = (event) => {
         this.setState({
@@ -40,49 +36,20 @@ class LoginForm extends Component {
     //         })
     // }
 
-    handleLogin (event) {
-        event.preventDefault()
-        const {email, password} = this.state
-        const request = {"auth": {"email": email, "password": password}}
-        console.log(request)
-        fetch("http://localhost:3001/api/v1/user_token", {
-          method: "POST",
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(request),
-        })
-        .then(result => {
-            console.log(result)
-            localStorage.setItem("jwt", result.jwt)
-        })
-        .catch(error => {
-            console.log(error)
-        }) 
-        // $.ajax({
-        //   url: "http://localhost:3000/api/v1/user_token",
-        //   type: "POST",
-        //   data: request,
-        //   dataType: "json",
-        //   success: function (result) {
-        //     console.log(result)
-        //     localStorage.setItem("jwt", result.jwt)
-        //   }
-        // })
-      }    
 
     render() {
+        const {email, password, handleLogin} = this.props
         return (
             <div>
-                <form onSubmit={this.handleLogin}>
+                <form onSubmit={handleLogin}>
 
                     <input name="email"
-                        value={this.state.email}
+                        value={email}
                         onChange={this.handleChange}>
                     </input>
                     <input name="password"
                         type="password"
-                        value={this.state.password}
+                        value={password}
                         onChange={this.handleChange}>
                     </input>
 

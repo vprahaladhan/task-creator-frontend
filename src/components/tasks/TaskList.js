@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NewTaskForm from './NewTaskForm'
 
-const api_url = 'https://localhost:3001/api/v1/tasks'
+const api_url = 'http://localhost:3001/api/v1/tasks'
 
 class TaskList extends Component {
     
@@ -13,6 +13,7 @@ class TaskList extends Component {
             tasks: []
         }
 
+    this.getTasks = this.getTasks.bind(this)
         
     }
 
@@ -22,7 +23,21 @@ class TaskList extends Component {
     }
 
     getTasks = () => {
-        
+        let token = "Bearer " + localStorage.getItem("jwt")
+        fetch(api_url, {
+
+          method: 'GET',
+          headers: {
+            'Authorization': token
+          }
+        })
+        .then((rsp) => rsp.json())
+        .then(response => {
+            console.log(response)
+            this.setState({
+                tasks: response
+            })
+        }) 
     }
 
     
@@ -30,9 +45,11 @@ class TaskList extends Component {
         return (
             <div className="task-list">
                 <NewTaskForm/>
-                <ul>
-                    <li>Task #1</li>
-                    <li>Task #2</li>
+                <ul >
+                    {this.state.tasks.map((task) => {
+                        <li key={task.id}>{task.name}</li>
+                    })
+                }
                 </ul>
             </div>
         )
