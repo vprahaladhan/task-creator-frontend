@@ -2,7 +2,7 @@
 
 const BASE_URL = 'http://localhost:3001';
 const USERS_URL = BASE_URL + '/users';
-const PERSIST_URL = BASE_URL + '/persist';
+const PERSIST_URL = BASE_URL + '/get_current_user';
 const LOGIN_URL = BASE_URL + '/login';
 const SPECIFIC_USER_URL = id => USERS_URL + '/' + id;
 
@@ -20,6 +20,7 @@ const clearUserAction = () => ({
 // Fetch
 
 const newUserToDB = userObj => dispatch => {
+ console.log("User object:', userObj")
   const config = {
     method: 'POST',
     headers: {
@@ -28,7 +29,7 @@ const newUserToDB = userObj => dispatch => {
     body: JSON.stringify(userObj)
   };
   fetch(USERS_URL, config)
-    .then(r => r.json())
+    .then(result => result.json())
     .then(data => {
       dispatch(setUserAction(data.user));
       localStorage.setItem('token', data.token);
@@ -61,7 +62,7 @@ const loginUserToDB = userCredentials => dispatch => {
     });
 };
 
-const persistUser = () => dispatch => {
+export const getCurrentUser = () => dispatch => {
   const config = {
     method: 'GET',
     headers: {
@@ -80,10 +81,10 @@ const logoutUser = () => dispatch => {
   localStorage.clear();
 };
 
-export {
+export default {
   newUserToDB,
   deleteUserFromDB,
   loginUserToDB,
-  persistUser,
+  getCurrentUser,
   logoutUser
 };

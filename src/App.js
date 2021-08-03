@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Home from './components/Home'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+
 const App = () => {
+
   return (
     <Router>
       <Route exact path="/" component={Home} />

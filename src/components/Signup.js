@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {newUserToDB} from '../redux/actions/user_actions';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-
+import userActions from '../redux/actions/userActions';                                                                                                                                                          
 const Signup = props => {
   // initializing dispatch
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ const Signup = props => {
   const handleSubmit = e => {
     e.preventDefault();
     const { history } = props;
-    dispatch(newUserToDB(signupForm));
+    dispatch(userActions.newUserToDB(signupForm));
     history.push('/');
   };
 

@@ -6,7 +6,7 @@ import {logoutUser } from '../redux/actions.js';
 const NavBar = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(.logoutUser());
+    dispatch(logoutUser());
   };
   return (
     <nav style={{ display: 'flex', justifyContent: 'space-evenly' }}>
