@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import userActions from '../redux/actions/userActions';
+import {loginUserToDB} from '../redux/actions/userActions';
 
 const Login = props => {
   // initializing dispatch
@@ -15,7 +15,7 @@ const Login = props => {
   // controlled form functions
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(userActions.loginUserToDB(loginForm));
+    dispatch(loginUserToDB(loginForm));
     props.history.push('/');
   };
 

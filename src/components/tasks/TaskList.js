@@ -1,42 +1,12 @@
-import React, { Component } from 'react'
-import NewTaskForm from './NewTaskForm'
+import React from 'react'
 
-const api_url = 'https://localhost:3001/api/v1/tasks'
+export const TaskList = () => {
+    useEffect(() => {
 
-class TaskList extends Component {
-    
-    constructor(props) {
-        super(props)
-        //items[0] = #Task 1
-        //items[1] = #Task 2
-        this.state = {
-            tasks: []
-        }
-
-        
-    }
-
-    componentDidMount() {
-        //Get the items from the API
-        this.getTasks()
-    }
-
-    getTasks = () => {
-        
-    }
-
-    
-    render() {
-        return (
-            <div className="task-list">
-                <NewTaskForm/>
-                <ul>
-                    <li>Task #1</li>
-                    <li>Task #2</li>
-                </ul>
-            </div>
-        )
-    }
+    }, [input])
+    return (
+        <div>
+            
+        </div>
+    )
 }
-
-export default TaskList
