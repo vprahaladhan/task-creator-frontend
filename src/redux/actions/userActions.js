@@ -36,7 +36,7 @@ const newUserToDB = userObj => dispatch => {
     });
 };
 
-export const deleteUserFromDB = userId => dispatch => {
+const deleteUserFromDB = userId => dispatch => {
   const config = {
     method: 'DELETE'
   };
@@ -70,7 +70,7 @@ export const getCurrentUser = () => dispatch => {
     }
   };
   fetch(PERSIST_URL, config)
-    .then(result => result.json())
+    .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));
     });

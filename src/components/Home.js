@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+<<<<<<< HEAD
 import {getCurrentUser} from '../redux/actions/userActions'
 
 const Home = () => {
@@ -10,6 +11,16 @@ const Home = () => {
     useEffect(() => {
         dispatch(getCurrentUser())
       }, [dispatch])
+=======
+import { getCurrentUser } from '../redux/actions/userActions'
+
+const Home = (props) => {
+    return (
+        <div class="main-container">
+            <h1>Home</h1>
+            {props.currentUser.username}
+        </div>
+>>>>>>> parent of 25c639e... commit stash
 
 //   const username = useSelector(state => state.currentUser.user.username);
   const text = currentUser ? (

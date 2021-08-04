@@ -1,25 +1,20 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTasks } from '../../redux/actions/taskActions'
 
+=======
+import React from 'react'
+>>>>>>> parent of 25c639e... commit stash
 
 export const TaskList = () => {
-    const tasks = useSelector(tasks => tasks.getTasksReducer)
-
-    console.log(tasks)
-    const dispatch = useDispatch()
-  
     useEffect(() => {
-      dispatch(getAllTasks())
-    }, [dispatch])
 
+    }, [dispatch])
     return (
         <div>
-        <h1>Your Tasks</h1>
-            <ul className="task-list">
-
-            </ul>
+            
         </div>
     )
 =======
