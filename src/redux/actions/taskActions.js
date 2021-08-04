@@ -4,7 +4,8 @@ import {
   CREATE_TASK,
   TASK_COMPLETED,
   DELETE_TASK,
-  GET_TASKS_URL
+  GET_TASKS_URL,
+  CREATE_TASK_URL
 } from './actionTypes'
 
 const loadTasks = tasks => {
@@ -35,9 +36,27 @@ export function createTask(id, title) {
   return {
     type: CREATE_TASK,
     id: id,
-    title: title
+    title: title,
+    description: description
   }
 }
+
+const createTaskToDB = taskObj => dispatch => {
+  console.log("Task object:", taskObj )
+   const config = {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify(userObj)
+   };
+   fetch(USERS_URL, config)
+     .then(result => result.json())
+     .then(data => {
+       dispatch(setUserAction(data.user));
+       localStorage.setItem('token', data.token);
+     });
+ };
 
 export function taskCompleted(index) {
   return {

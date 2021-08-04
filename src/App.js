@@ -6,6 +6,8 @@ import Login from './components/Login'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { getCurrentUser } from './redux/actions/userActions'
 import NavBar from './components/NavBar'
+import TaskList from './components/tasks/TaskList'
+import NewTaskForm from './components/tasks/NewTaskForm'
 
 
 const App = () => {
@@ -30,7 +32,8 @@ const App = () => {
                   // handleLogout={this.handleLogout}
                   />
                 )} />
-
+      <Route path="/tasks" component={TaskList} />
+      <Route path="/tasks/new" component={NewTaskForm} />
       <Route path="/register" component={Signup} />
       <Route path="/login" component={Login} />
       

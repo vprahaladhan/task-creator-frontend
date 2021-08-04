@@ -16,7 +16,6 @@ const Home = (props) => {
         <div class="main-container">
             <h1>Home</h1>
             {props.currentUser.username}
-            <TaskList/>
         </div>
     )
 };
