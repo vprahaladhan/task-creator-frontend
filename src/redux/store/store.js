@@ -1,11 +1,12 @@
 import thunk from 'redux-thunk'
 import { createStore, combineReducers, applyMiddleware} from 'redux' 
-import currentUser from '../reducers/currentUser.js'
 import logger from 'redux-logger'
+import currentUser from '../reducers/currentUser.js'
+import getTasksReducer from '../reducers/tasksReducer.js'
 
 const rootReducer = combineReducers({
-    currentUser
-    //
+    currentUser,
+    getTasksReducer
 })
 
 
