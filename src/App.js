@@ -6,12 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
 const App = () => {
-<<<<<<< HEAD
-
-  return (
-    <Router>
-      <Route exact path="/" component={Home} />
-=======
   const currentUser = useSelector(state => state.currentUser)
 
   console.log(currentUser)
@@ -34,7 +28,6 @@ const App = () => {
                   />
                 )} />
 
->>>>>>> parent of 25c639e... commit stash
       <Route path="/register" component={Signup} />
       <Route path="/login" component={Login} />
       
