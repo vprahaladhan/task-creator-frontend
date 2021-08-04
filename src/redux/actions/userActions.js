@@ -19,7 +19,7 @@ const clearUserAction = () => ({
 
 // Fetch
 
-export const newUserToDB = userObj => dispatch => {
+const newUserToDB = userObj => dispatch => {
  console.log("User object:', userObj")
   const config = {
     method: 'POST',
@@ -46,7 +46,7 @@ export const deleteUserFromDB = userId => dispatch => {
   });
 };
 
-export const loginUserToDB = userCredentials => dispatch => {
+const loginUserToDB = userCredentials => dispatch => {
   const config = {
     method: 'POST',
     headers: {
@@ -76,7 +76,15 @@ export const getCurrentUser = () => dispatch => {
     });
 };
 
-export const logoutUser = () => dispatch => {
+const logoutUser = () => dispatch => {
   dispatch(clearUserAction());
   localStorage.clear();
+};
+
+export default {
+  newUserToDB,
+  deleteUserFromDB,
+  loginUserToDB,
+  getCurrentUser,
+  logoutUser
 };
