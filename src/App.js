@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -82,10 +83,39 @@ handleLogin(event) {
             
             <Switch>
               {/* <Route
+=======
+import React, {useEffect} from 'react'
+import Home from './components/Home'
+import Signup from './components/Signup'
+import Login from './components/Login'
+import { useSelector } from 'react-redux'
+import { getCurrentUser } from './redux/actions/userActions'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import NavBar from './components/NavBar'
+
+import { useDispatch } from 'react-redux'
+
+
+const App = () => {
+  const currentUser = useSelector(state => state.currentUser)
+
+  console.log(currentUser)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+      dispatch(getCurrentUser())
+    }, [dispatch])
+
+  return (
+    <Router>
+      <NavBar/>
+      <Route
+>>>>>>> jwt
                 exact path={"/"}
                 render={props => (
                   <LoginForm
                     {...props}
+<<<<<<< HEAD
                     handleChange={this.handleChange}
                     handleLogin={this.handleLogin}
                     state={this.state}
@@ -144,9 +174,18 @@ handleLogin(event) {
           </Router>
 
         </div>
+=======
+                    currentUser={currentUser}
+                  // handleLogout={this.handleLogout}
+                  />
+                )} />
+>>>>>>> jwt
 
-      );
-  }
+      <Route path="/register" component={Signup} />
+      <Route path="/login" component={Login} />
+      
+   </Router>
+  )
 }
 
-        export default App;
+export default App;
