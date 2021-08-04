@@ -1,8 +1,10 @@
+import { SET_USER, CLEAR_USER } from "../actions/actionTypes";
+
 const currentUser = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_USER':
+    case SET_USER:
       return action.payload
-    case 'CLEAR_USER':
+    case CLEAR_USER:
       return {}
     default:
       return state;

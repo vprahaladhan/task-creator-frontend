@@ -1,12 +1,25 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllTasks } from '../../redux/actions/taskActions'
+import TaskItem from './TaskItem'
+
 
 export const TaskList = () => {
-    useEffect(() => {
+    const tasks = useSelector(state => state.tasksReducer)
 
+    console.log(tasks)
+    const dispatch = useDispatch()
+  
+    useEffect(() => {
+      dispatch(getAllTasks())
     }, [dispatch])
+
     return (
         <div>
-            
+        <h1>Your Tasks</h1>
+            <ul className="task-list">
+                {tasks.map(task => <TaskItem task={task}/>)}
+            </ul>
         </div>
     )
 }
