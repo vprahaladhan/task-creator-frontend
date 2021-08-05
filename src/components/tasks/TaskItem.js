@@ -3,8 +3,10 @@ import React from 'react'
 const TaskItem = (props) => {
     return (
         <>
-        <li>{props.task.title}</li>
-        <li>{props.task.description}</li>
+        <li>
+            <h2>{props.task.title}</h2>
+            <p>{props.task.description}</p>
+        </li>
         </>
     )
 }

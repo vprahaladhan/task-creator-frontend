@@ -4,8 +4,7 @@ import {
   CREATE_TASK,
   TASK_COMPLETED,
   DELETE_TASK,
-  GET_TASKS_URL,
-  CREATE_TASK_URL
+  TASKS_URL,
 } from './actionTypes'
 
 const loadTasks = tasks => {
@@ -24,7 +23,7 @@ export const getAllTasks = () => dispatch => {
     }
   };
   
-  fetch(GET_TASKS_URL, config)
+  fetch(TASKS_URL, config)
     .then(r => r.json())
     .then(tasks => {
       console.log("Fetch request function ")
@@ -32,12 +31,11 @@ export const getAllTasks = () => dispatch => {
     });
 };
 
-export function createTask(id, title) {
+export function createTask(task) {
+  console.log("THE TASK", task)
   return {
     type: CREATE_TASK,
-    id: id,
-    title: title,
-    description: description
+    task
   }
 }
 
@@ -48,13 +46,12 @@ const createTaskToDB = taskObj => dispatch => {
      headers: {
        'Content-Type': 'application/json'
      },
-     body: JSON.stringify(userObj)
+     body: JSON.stringify(taskObj)
    };
-   fetch(USERS_URL, config)
+   fetch(TASKS_URL, config)
      .then(result => result.json())
      .then(data => {
-       dispatch(setUserAction(data.user));
-       localStorage.setItem('token', data.token);
+       dispatch(createTask(data.task));
      });
  };
 
@@ -65,6 +62,14 @@ export function taskCompleted(index) {
   }
 }
 
-export function deleteTodo(index) {
+export function deleteTask(index) {
   return { type: DELETE_TASK, index: index }
 }
+
+export default {
+  loadTasks,
+  getAllTasks,
+  createTask,
+  createTaskToDB,
+  deleteTask
+};
