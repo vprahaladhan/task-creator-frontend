@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import taskActions from '../../redux/actions/taskActions';                                                                                                                                                          
-const NewTaskForm = props => {
+const NewTaskForm = (props) => {
+  const currentUser = useSelector(state => state.currentUser)
+    console.log("Current user", currentUser)
   // initializing dispatch
   const dispatch = useDispatch();
 
   // Setting up local state using the useState hook
   const [newTask, setNewTask] = useState({
     title: '',
-    description: ''
+    description: '',
+    user_id: currentUser.id
   });
 
   // Controlled form functions

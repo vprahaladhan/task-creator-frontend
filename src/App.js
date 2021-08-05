@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Home from './components/Home'
 import Signup from './components/Signup'
@@ -17,27 +17,34 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-      dispatch(getCurrentUser())
-    }, [dispatch])
+    dispatch(getCurrentUser())
+  }, [dispatch])
 
   return (
     <Router>
-      <NavBar/>
+      <NavBar />
       <Route
-                exact path={"/"}
-                render={props => (
-                  <Home
-                    {...props}
-                    currentUser={currentUser}
-                  // handleLogout={this.handleLogout}
-                  />
-                )} />
-      <Route path="/tasks" component={TaskList} />
-      <Route path="/tasks/new" component={NewTaskForm} />
+        exact path={"/"}
+        render={props => (
+          <Home
+            {...props}
+            currentUser={currentUser}
+          // handleLogout={this.handleLogout}
+          />
+        )} />
+      <Route exact path="/tasks" component={TaskList} />
+      <Route 
+        path="/tasks/new" 
+        render={props => (
+          <NewTaskForm
+            {...props}
+            currentUser={currentUser}
+            />
+            )}/>
       <Route path="/register" component={Signup} />
       <Route path="/login" component={Login} />
-      
-   </Router>
+
+    </Router>
   )
 }
 

@@ -17,7 +17,9 @@ const TaskList = () => {
         <div>
         <h1>Your Tasks</h1>
             <ul className="task-list">
-                {tasks.map(task => <TaskItem task={task}/>)}
+                {tasks.map(
+                    task => <TaskItem task={task}/>)
+                }
             </ul>
         </div>
     )
