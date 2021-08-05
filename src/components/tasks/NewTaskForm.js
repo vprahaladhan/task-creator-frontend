@@ -23,6 +23,7 @@ const NewTaskForm = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
     const { history } = props;
+    console.log("This user is", currentUser)
     dispatch(taskActions.createTaskToDB(newTask));
     history.push('/tasks');
   };
@@ -41,6 +42,7 @@ const NewTaskForm = (props) => {
         onChange={handleChange}
         placeholder="Task Title"
       />
+      <br/>
       <textarea 
         name="description"
         value={description}

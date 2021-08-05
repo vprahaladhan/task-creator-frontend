@@ -22,6 +22,7 @@ const Signup = props => {
   const handleSubmit = e => {
     e.preventDefault();
     const { history } = props;
+    console.log("Sign up data: ", signupForm)
     dispatch(userActions.newUserToDB(signupForm));
     history.push('/');
   };

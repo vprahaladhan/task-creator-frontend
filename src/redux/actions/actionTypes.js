@@ -14,4 +14,5 @@ export const CREATE_TASK = 'CREATE_TASK'
 export const TASK_COMPLETED = 'TASK_COMPLETED'
 export const DELETE_TASK = 'DELETE_TASK'
 
-export const TASKS_URL = BASE_URL + '/tasks';
+export const GET_TASKS_URL = BASE_URL + '/tasks';
+export const CREATE_TASK_URL = BASE_URL + '/create-new-task';

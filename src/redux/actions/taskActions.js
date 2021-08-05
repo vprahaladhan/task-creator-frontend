@@ -4,7 +4,8 @@ import {
   CREATE_TASK,
   TASK_COMPLETED,
   DELETE_TASK,
-  TASKS_URL,
+  CREATE_TASK_URL,
+  GET_TASKS_URL,
 } from './actionTypes'
 
 const loadTasks = tasks => {
@@ -23,7 +24,7 @@ export const getAllTasks = () => dispatch => {
     }
   };
   
-  fetch(TASKS_URL, config)
+  fetch(GET_TASKS_URL, config)
     .then(r => r.json())
     .then(tasks => {
       console.log("Fetch request function ")
@@ -48,11 +49,13 @@ const createTaskToDB = taskObj => dispatch => {
      },
      body: JSON.stringify(taskObj)
    };
-   fetch(TASKS_URL, config)
+   fetch(CREATE_TASK_URL, config)
      .then(result => result.json())
      .then(data => {
+       console.log("the data")
        dispatch(createTask(data.task));
-     });
+     })
+     .catch(error => console.log(error))
  };
 
 export function taskCompleted(index) {
