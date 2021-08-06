@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import taskActions from '../../redux/actions/taskActions';                                                                                                                                                          
-const NewTaskForm = (props) => {
+const EditTask = (props) => {
   const currentUser = useSelector(state => state.currentUser)
-    console.log("Current user", currentUser)
+    console.log(props)
   // initializing dispatch
   const dispatch = useDispatch();
 
   // Setting up local state using the useState hook
   const [newTask, setNewTask] = useState({
-    title: '',
-    description: '',
+    title: props.task.title,
+    description: props.task.description,
     user_id: currentUser.id
   });
 
@@ -34,7 +35,7 @@ const NewTaskForm = (props) => {
   // Component code
   return (
     <form onSubmit={handleSubmit}>
-      <h1>New Task</h1>
+      <h1>Edit Task</h1>
       <input
         type="text"
         name="title"
@@ -55,4 +56,4 @@ const NewTaskForm = (props) => {
   );
 };
 
-export default NewTaskForm;
+export default EditTask;

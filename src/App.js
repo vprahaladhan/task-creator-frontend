@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { getCurrentUser } from './redux/actions/userActions'
 import NavBar from './components/NavBar'
 import TaskList from './components/tasks/TaskList'
-import NewTaskForm from './components/tasks/NewTaskForm'
+import InputTaskForm from './components/tasks/InputTaskForm'
+import { ShowTask } from './components/tasks/ShowTask'
 
 
 const App = () => {
@@ -33,17 +34,22 @@ const App = () => {
           />
         )} />
       <Route exact path="/tasks" component={TaskList} />
-      <Route 
-        path="/tasks/new" 
+      <Route
+        path="/tasks/new"
         render={props => (
-          <NewTaskForm
+          <InputTaskForm
             {...props}
             currentUser={currentUser}
-            />
-            )}/>
+          />
+        )} />
       <Route path="/register" component={Signup} />
       <Route path="/login" component={Login} />
-
+      <Route path='/task/:id' render={match =>
+        <ShowTask match={match}/>
+      } />
+      <Route path='/task/:id/edit' render={match =>
+        <InputTaskForm match={match} />
+      } />
     </Router>
   )
 }

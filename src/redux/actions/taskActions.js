@@ -45,6 +45,7 @@ const createTaskToDB = taskObj => dispatch => {
    const config = {
      method: 'POST',
      headers: {
+        Authorization: `bearer ` + localStorage.token,
        'Content-Type': 'application/json'
      },
      body: JSON.stringify(taskObj)
