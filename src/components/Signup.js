@@ -7,13 +7,20 @@ const Signup = props => {
 
   // Setting up local state using the useState hook
   const [signupForm, setSignupForm] = useState({
-    username: '',
-    password: ''
+    user: {
+      username: '',
+      password: ''
+    }
   });
 
   // Controlled form functions
   const handleChange = e => {
-    setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
+
+    setSignupForm({ ...signupForm, user: {
+        ...signupForm.user,
+        [e.target.name]: e.target.value }
+      }
+    );
     console.log("Signup form", signupForm)
   }
 
@@ -28,7 +35,10 @@ const Signup = props => {
   };
 
   // Destructuring keys from our local state to use in the form
-  const { username, password } = signupForm;
+  console.log("destructured:", signupForm.user)
+  const { username, password } = signupForm.user;
+
+
 
   // Component code
   return (

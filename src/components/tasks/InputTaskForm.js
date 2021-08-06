@@ -10,18 +10,17 @@ const InputTaskForm = (props) => {
   const location = useLocation()
   const path = location.pathname
   const params = useParams()
-  console.log("Params: ", params)
+  console.log("params: ", params)
 
   // Setting up local state using the useState hook
     const [task, setTask] =  
       useState({
         title: (path === '/tasks/new') ? '' : 'hello',
         description: (path === '/tasks/new') ? '' : 'description',
-        user_id: currentUser.id, 
-        task_id: (path === '/tasks/new') ? null : params.id
+        user_id: currentUser.id
       })
       
-      console.log(task)
+      console.log(task.task_id)
 
   // Controlled form functions
   const handleChange = e => {
@@ -29,7 +28,7 @@ const InputTaskForm = (props) => {
   }
 
 
-  const handleSubmit = e => {
+  const handleCreateTask = e => {
     e.preventDefault();
     const { history } = props;
     console.log("This user is", currentUser)
@@ -37,7 +36,7 @@ const InputTaskForm = (props) => {
     history.push('/tasks');
   };
 
-  const handleEdit = e => {
+  const handleEditTask = e => {
     e.preventDefault();
     console.log("This user is", currentUser)
     dispatch(taskActions.updateTaskToDB(task));
@@ -49,7 +48,7 @@ const InputTaskForm = (props) => {
 
   // Component code
   return (
-    <form onSubmit={(path === '/tasks/edit') ? handleSubmit : handleEdit}>
+    <form onSubmit={(path === '/tasks/new') ? handleCreateTask : handleEditTask}>
       <h1>New Task</h1>
       <input
         type="text"

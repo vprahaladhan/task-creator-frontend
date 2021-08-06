@@ -3,7 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { useLocation, useParams } from 'react-router-dom'
 import { getAllTasks } from '../../redux/actions/taskActions'
 
-export const ShowTask = (props) => {
+const ShowTask = (props) => {
     // const location = useLocation()
     const params = useParams()
     const tasks = useSelector(state => state.tasksReducer)
@@ -32,21 +32,4 @@ export const ShowTask = (props) => {
     )
 }
 
-// const mapStateToProps = state => {
-//     return {
-//       tasks: state.tasks
-//     }
-//   }
-  
-//   const mapDispatchToProps = dispatch => {
-//     return {
-//       getAllTasks: () => dispatch(getAllTasks())
-//     }
-//   }
-
-//   export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-//   )(ShowTask)
-
-
+export default ShowTask

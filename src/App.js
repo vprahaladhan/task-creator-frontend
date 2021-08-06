@@ -8,7 +8,7 @@ import { getCurrentUser } from './redux/actions/userActions'
 import NavBar from './components/NavBar'
 import TaskList from './components/tasks/TaskList'
 import InputTaskForm from './components/tasks/InputTaskForm'
-import { ShowTask } from './components/tasks/ShowTask'
+import ShowTask from './components/tasks/ShowTask'
 
 
 const App = () => {
@@ -34,14 +34,14 @@ const App = () => {
           />
         )} />
       <Route exact path="/tasks" component={TaskList} />
-      <Route
-        path="/tasks/new"
+      <Route 
+        path="/tasks/new" 
         render={props => (
           <InputTaskForm
             {...props}
             currentUser={currentUser}
-          />
-        )} />
+            />
+            )}/>
       <Route path="/register" component={Signup} />
       <Route path="/login" component={Login} />
       <Route path='/task/:id' render={match =>

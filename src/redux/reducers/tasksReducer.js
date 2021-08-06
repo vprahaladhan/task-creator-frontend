@@ -10,8 +10,6 @@ const tasksReducer = (state = [], action) => {
                 {
                     id: action.id,
                     title: action.title,
-                    description: action.description,
-                    user_id: action.user_id,
                     completed: false
                 }
             ]
@@ -21,12 +19,12 @@ const tasksReducer = (state = [], action) => {
                 : task
             )
         case TASK_COMPLETED:
-            return state.map(task => (task.id === action.id)
+            return state.map(task => (task.id === action.index)
                 ? { ...task, done: !task.done }
                 : task
             )
         case DELETE_TASK:
-            return state.filter(task => task.id !== action.id)
+            return state.filter(task => task.id !== action.index)
 
         default:
             return state;
