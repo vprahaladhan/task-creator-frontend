@@ -2,6 +2,7 @@
 import {
   LOAD_TASKS,
   CREATE_TASK,
+  UPDATE_TASK,
   TASK_COMPLETED,
   DELETE_TASK,
   CREATE_TASK_URL,
@@ -24,13 +25,14 @@ export const getAllTasks = () => dispatch => {
     }
   };
   
-  fetch(GET_TASKS_URL, config)
+  fetch('http://localhost:3001/tasks', config)
     .then(r => r.json())
     .then(tasks => {
       console.log("Fetch request function ")
       dispatch(loadTasks(tasks));
     });
 };
+
 
 export function createTask(task) {
   console.log("THE TASK", task)
@@ -39,6 +41,31 @@ export function createTask(task) {
     task
   }
 }
+export function updateTask(task) {
+  console.log("THE TASK", task)
+  return {
+    type: UPDATE_TASK,
+    task
+  }
+}
+const updateTaskToDB = taskObj => dispatch => {
+  console.log("Task object:", taskObj.task_id )
+   const config = {
+     method: 'PUT',
+     headers: {
+        Authorization: `bearer ` + localStorage.token,
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify(taskObj)
+   };
+   fetch(`http://localhost:3001/tasks/${taskObj.task_id}`, config)
+     .then(result => result.json())
+     .then(data => {
+       console.log("the data")
+       dispatch(createTask(data.task));
+     })
+     .catch(error => console.log(error))
+ };
 
 const createTaskToDB = taskObj => dispatch => {
   console.log("Task object:", taskObj )
@@ -50,7 +77,7 @@ const createTaskToDB = taskObj => dispatch => {
      },
      body: JSON.stringify(taskObj)
    };
-   fetch(CREATE_TASK_URL, config)
+   fetch('http://localhost:3001/create-new-task', config)
      .then(result => result.json())
      .then(data => {
        console.log("the data")
@@ -75,5 +102,6 @@ export default {
   getAllTasks,
   createTask,
   createTaskToDB,
+  updateTaskToDB,
   deleteTask
 };

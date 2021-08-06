@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import taskActions from '../../redux/actions/taskActions';                                                                                                                                                          
 const InputTaskForm = (props) => {
   const currentUser = useSelector(state => state.currentUser)
@@ -9,15 +9,19 @@ const InputTaskForm = (props) => {
   const dispatch = useDispatch();
   const location = useLocation()
   const path = location.pathname
-  console.log("Location: ", location.pathname)
+  const params = useParams()
+  console.log("Params: ", params)
 
   // Setting up local state using the useState hook
     const [task, setTask] =  
       useState({
         title: (path === '/tasks/new') ? '' : 'hello',
         description: (path === '/tasks/new') ? '' : 'description',
-        user_id: currentUser.id
-      }) 
+        user_id: currentUser.id, 
+        task_id: (path === '/tasks/new') ? null : params.id
+      })
+      
+      console.log(task)
 
   // Controlled form functions
   const handleChange = e => {
@@ -35,7 +39,9 @@ const InputTaskForm = (props) => {
 
   const handleEdit = e => {
     e.preventDefault();
-    console.log("Edit reached")
+    console.log("This user is", currentUser)
+    dispatch(taskActions.updateTaskToDB(task));
+    // history.push('/tasks');
   }
 
   // Destructuring keys from our local state to use in the form

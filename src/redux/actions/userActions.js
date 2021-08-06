@@ -21,7 +21,7 @@ const clearUserAction = () => ({
 // Fetch
 
 const newUserToDB = userObj => dispatch => {
-  console.log("Json DATA", JSON.stringify(userObj))
+  console.log("User object", JSON.stringify(userObj))
   const config = {
     method: 'POST',
     headers: {
@@ -29,7 +29,7 @@ const newUserToDB = userObj => dispatch => {
     },
     body: JSON.stringify(userObj)
   };
-  fetch(USERS_URL, config)
+  fetch('http://localhost:3001/users', config)
     .then(result => result.json())
     .then(data => {
       console.log("data", data)
@@ -43,7 +43,7 @@ const deleteUserFromDB = userId => dispatch => {
   const config = {
     method: 'DELETE'
   };
-  fetch(SPECIFIC_USER_URL(userId), config).then(r => {
+  fetch(`http://localhost:3001/users/${userId}`, config).then(r => {
     dispatch(clearUserAction());
     localStorage.clear();
   });
@@ -57,7 +57,7 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch(LOGIN_URL, config)
+  fetch('http://localhost:3001/users/login', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -72,7 +72,7 @@ export const getCurrentUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch(PERSIST_USER_URL, config)
+  fetch('http://localhost:3001/get_current_user', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

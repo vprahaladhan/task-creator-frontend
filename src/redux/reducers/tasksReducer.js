@@ -1,4 +1,4 @@
-import { LOAD_TASKS, CREATE_TASK, TASK_COMPLETED, DELETE_TASK } from '../actions/actionTypes'
+import { LOAD_TASKS, CREATE_TASK, TASK_COMPLETED, DELETE_TASK, UPDATE_TASK } from '../actions/actionTypes'
 
 const tasksReducer = (state = [], action) => {
     switch (action.type) {
@@ -11,9 +11,15 @@ const tasksReducer = (state = [], action) => {
                     id: action.id,
                     title: action.title,
                     description: action.description,
+                    user_id: action.user_id,
                     completed: false
                 }
             ]
+        case UPDATE_TASK:
+            return state.map(task => (task.id === action.id)
+                ? { ...task, task }
+                : task
+            )
         case TASK_COMPLETED:
             return state.map(task => (task.id === action.id)
                 ? { ...task, done: !task.done }

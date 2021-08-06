@@ -47,7 +47,7 @@ const App = () => {
       <Route path='/task/:id' render={match =>
         <ShowTask match={match}/>
       } />
-      <Route path='/task/:id/edit' render={match =>
+      <Route path='/tasks/:id/edit' render={match =>
         <InputTaskForm match={match} />
       } />
     </Router>
