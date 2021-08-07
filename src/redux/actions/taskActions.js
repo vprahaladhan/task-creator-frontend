@@ -24,7 +24,7 @@ export const getAllTasks = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  
+
   fetch('http://localhost:3001/tasks', config)
     .then(r => r.json())
     .then(tasks => {
@@ -49,41 +49,41 @@ export function updateTask(task) {
   }
 }
 const updateTaskToDB = taskObj => dispatch => {
-  console.log("Task object:", taskObj.task_id )
-   const config = {
-     method: 'PUT',
-     headers: {
-        Authorization: `bearer ` + localStorage.token,
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(taskObj)
-   };
-   fetch(`http://localhost:3001/tasks/${taskObj.task_id}`, config)
-     .then(result => result.json())
-     .then(data => {
-       console.log("the data")
-       dispatch(createTask(data.task));
-     })
-     .catch(error => console.log(error))
- };
+  console.log("Task object:", taskObj)
+  const config = {
+    method: 'PUT',
+    headers: {
+      Authorization: `bearer ` + localStorage.token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(taskObj)
+  };
+  fetch(`http://localhost:3001/tasks/${taskObj.task_id}`, config)
+    .then(result => result.json())
+    .then(data => {
+      console.log("the data", data.task)
+      dispatch(updateTask(data.task));
+    })
+    .catch(error => console.log(error))
+};
 
 const createTaskToDB = taskObj => dispatch => {
-  console.log("Task object:", taskObj )
-   const config = {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(taskObj)
-   };
-   fetch('http://localhost:3001/create-new-task', config)
-     .then(result => result.json())
-     .then(data => {
-       console.log("the data")
-       dispatch(createTask(data.task));
-     })
-     .catch(error => console.log(error))
- };
+  console.log("Task object:", taskObj)
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(taskObj)
+  };
+  fetch('http://localhost:3001/create-new-task', config)
+    .then(result => result.json())
+    .then(data => {
+      console.log("the data")
+      dispatch(createTask(data.task));
+    })
+    .catch(error => console.log(error))
+};
 
 export function taskCompleted(index) {
   return {

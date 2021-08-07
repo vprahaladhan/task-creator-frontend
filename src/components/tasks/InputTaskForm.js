@@ -1,55 +1,68 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
-import taskActions from '../../redux/actions/taskActions';                                                                                                                                                          
+import { useLocation, useParams, useHistory } from 'react-router-dom';
+import taskActions from '../../redux/actions/taskActions';
+import {getCurrentUser} from '../../redux/actions/userActions';                                                                                                                                                          
 const InputTaskForm = (props) => {
-  const currentUser = useSelector(state => state.currentUser)
-    console.log("Current user", currentUser)
-  // initializing dispatch
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.currentUser.id)
+  useEffect(() => {
+    dispatch(getCurrentUser())
+    console.log("Mounted current user: ", currentUser)
+  }, [dispatch])
+
+  
+  const tasks = useSelector(state => state.tasksReducer)
   const location = useLocation()
+  const history = useHistory();
   const path = location.pathname
   const params = useParams()
-  console.log("params: ", params)
+  const taskToEdit = tasks.find(task => task.id == params.id)
 
-  // Setting up local state using the useState hook
-    const [task, setTask] =  
+    // Setting up local state using the useState hook
+    const [taskForm, setTaskForm] =  
       useState({
-        title: (path === '/tasks/new') ? '' : 'hello',
-        description: (path === '/tasks/new') ? '' : 'description',
-        user_id: currentUser.id
+        task: {
+          id: (taskToEdit) ? taskToEdit.id : null,
+          title: (path === '/tasks/new') ? '' : taskToEdit.title,
+          description: (path === '/tasks/new') ? '' : taskToEdit.description,
+          user_id: currentUser
+        }
       })
-      
-      console.log(task.task_id)
+
+      console.log("CURRRRENT USER", taskForm)
 
   // Controlled form functions
   const handleChange = e => {
-    setTask({ ...task, [e.target.name]: e.target.value });
+    setTaskForm({ ...taskForm, task: {
+      ...taskForm.task,
+      [e.target.name]: e.target.value 
+    }
+  });
   }
-
 
   const handleCreateTask = e => {
     e.preventDefault();
-    const { history } = props;
-    console.log("This user is", currentUser)
-    dispatch(taskActions.createTaskToDB(task));
+    console.log("Submitted task is:", taskForm)
+    // console.log("This user is", currentUser)
+    dispatch(taskActions.createTaskToDB(taskForm));
     history.push('/tasks');
   };
 
-  const handleEditTask = e => {
+  const handleEdit = e => {
     e.preventDefault();
-    console.log("This user is", currentUser)
-    dispatch(taskActions.updateTaskToDB(task));
-    // history.push('/tasks');
+    dispatch(taskActions.updateTaskToDB(taskForm));
+    history.push('/tasks');
   }
 
   // Destructuring keys from our local state to use in the form
-  const { title, description } = task;
+  const { title, description } = taskForm.task;
 
   // Component code
   return (
-    <form onSubmit={(path === '/tasks/new') ? handleCreateTask : handleEditTask}>
-      <h1>New Task</h1>
+    <form onSubmit={(path === '/tasks/new') ? handleCreateTask : handleEdit}>
+      <h1>{(path === '/tasks/new') ? "New Task" : "Edit task" }</h1>
       <input
         type="text"
         name="title"

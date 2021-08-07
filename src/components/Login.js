@@ -7,11 +7,24 @@ const Login = props => {
   // initializing dispatch
   const dispatch = useDispatch();
   // Setting up local state using the useState hook
-  const [loginForm, setLoginForm] = useState({
-    username: '',
-    password: ''
+  // Setting up local state using the useState hook
+  const [loginForm, setloginForm] = useState({
+    user: {
+      username: '',
+      password: ''
+    }
   });
 
+  // Controlled form functions
+  const handleChange = e => {
+
+    setloginForm({ ...loginForm, user: {
+        ...loginForm.user,
+        [e.target.name]: e.target.value }
+      }
+    );
+    console.log("Login form", loginForm)
+  }
   // controlled form functions
   const handleSubmit = e => {
     e.preventDefault();
@@ -19,11 +32,9 @@ const Login = props => {
     props.history.push('/');
   };
 
-  const handleChange = e =>
-    setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
 
   // Destructuring keys from our local state to use in the form
-  const { username, password } = loginForm;
+  const { username, password } = loginForm.user;
 
   // Component code
   return (
