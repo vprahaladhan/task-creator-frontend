@@ -3,22 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams, useHistory } from 'react-router-dom';
 import taskActions from '../../redux/actions/taskActions';
-import {getCurrentUser} from '../../redux/actions/userActions';                                                                                                                                                          
+import userActions from '../../redux/actions/userActions';                                                                                                                                                          
 const InputTaskForm = (props) => {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.currentUser.id)
-  useEffect(() => {
-    dispatch(getCurrentUser())
-    console.log("Mounted current user: ", currentUser)
-  }, [dispatch])
-
-  
   const tasks = useSelector(state => state.tasksReducer)
   const location = useLocation()
   const history = useHistory();
   const path = location.pathname
   const params = useParams()
   const taskToEdit = tasks.find(task => task.id == params.id)
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(userActions.getCurrentUser());
+      console.log("Mounted current user: ", currentUser)
+    }
+  }, [dispatch])
 
     // Setting up local state using the useState hook
     const [taskForm, setTaskForm] =  

@@ -1,7 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+// import taskActions from '../../redux/actions/taskAction';
+
 const TaskItem = (props) => {
+    const handleDeleteTask = () => {
+      // taskActions.deleteTaskFromDB
+    } 
+
     return (
         <>
         <li>
@@ -16,7 +22,7 @@ const TaskItem = (props) => {
             <Link to={ { pathname: `/tasks/${props.task.id}/edit` }}>
                 <button> Edit </button>
             </Link>
-            <button>Delete</button>
+            <button onClick={handleDeleteTask}>Delete</button>
         </li>
         </>
     )

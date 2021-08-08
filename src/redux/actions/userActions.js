@@ -19,6 +19,22 @@ const clearUserAction = () => ({
 });
 
 // Fetch
+const getCurrentUser = () => dispatch => {
+  if (localStorage.getItem('token')) {
+    const config = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    };
+    
+    fetch(`http://localhost:3001/users/${localStorage.getItem('user_id')}`, config)
+      .then(r => r.json())
+      .then(userInstance => {
+        dispatch(setUserAction(userInstance));
+      });
+  }
+};
 
 const newUserToDB = userObj => dispatch => {
   console.log("User object", JSON.stringify(userObj))
@@ -41,7 +57,10 @@ const newUserToDB = userObj => dispatch => {
 
 const deleteUserFromDB = userId => dispatch => {
   const config = {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ` + localStorage.token
+    }
   };
   fetch(`http://localhost:3001/users/${userId}`, config).then(r => {
     dispatch(clearUserAction());
@@ -57,31 +76,30 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch('http://localhost:3001/users/login', config)
+  fetch('http://localhost:3001/login', config)
     .then(r => r.json())
     .then(data => {
-      dispatch(setUserAction(data.user));
+      console.log('Login data > ', data);
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user_id', data.user.id);
+      dispatch(setUserAction(data.user));
     });
 };
 
-export const getCurrentUser = () => dispatch => {
+const logoutUser = () => dispatch => {
   const config = {
-    method: 'GET',
+    method: 'POST',
     headers: {
-      Authorization: `bearer ` + localStorage.token
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     }
   };
-  fetch('http://localhost:3001/get_current_user', config)
-    .then(r => r.json())
-    .then(userInstance => {
-      dispatch(setUserAction(userInstance));
-    });
-};
 
-export const logoutUser = () => dispatch => {
-  dispatch(clearUserAction());
-  localStorage.clear();
+  fetch(`http://localhost:3001/logout`, config)
+    .then(r => r.json())
+    .then(() => {
+      dispatch(clearUserAction());
+      localStorage.clear();
+    });
 };
 
 export default {

@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {getCurrentUser} from '../redux/actions/userActions'
+
 import TaskList from './tasks/TaskList';
+import userActions from '../redux/actions/userActions'
 
 const Home = (props) => {
-    const currentUser = useSelector(state => state.currentUser.username)
-    console.log(currentUser)
-    const dispatch = useDispatch()
+    const currentUser = useSelector(state => state.currentUser)
+    console.log('Current User >> ', currentUser);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUser())
+        dispatch(userActions.getCurrentUser());
       }, [dispatch])
 
     return (
         <div class="main-container">
             <h1>Home</h1>
-            {props.currentUser.username}
+            {currentUser && currentUser.user && currentUser.username}
         </div>
     )
 };
