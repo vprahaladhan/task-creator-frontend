@@ -8,8 +8,9 @@ const tasksReducer = (state = [], action) => {
             return [
                 ...state,
                 {
-                    id: action.id,
-                    title: action.title,
+                    id: action.task.id,
+                    title: action.task.title,
+                    description: action.task.description,
                     completed: false
                 }
             ]

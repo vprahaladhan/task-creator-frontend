@@ -43,11 +43,11 @@ const InputTaskForm = (props) => {
   });
   }
 
-  const handleCreateTask = e => {
+  const handleCreateTask = async (e) => {
     e.preventDefault();
     console.log("Submitted task is:", taskForm)
     // console.log("This user is", currentUser)
-    dispatch(taskActions.createTaskToDB(taskForm));
+    await dispatch(taskActions.createTaskToDB(taskForm));
     history.push('/tasks');
   };
 

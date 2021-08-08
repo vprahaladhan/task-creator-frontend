@@ -11,12 +11,12 @@ const Home = (props) => {
 
     useEffect(() => {
         dispatch(userActions.getCurrentUser());
-      }, [dispatch])
+      }, [])
 
     return (
         <div class="main-container">
             <h1>Home</h1>
-            {currentUser && currentUser.user && currentUser.username}
+            {currentUser && currentUser.username}
         </div>
     )
 };

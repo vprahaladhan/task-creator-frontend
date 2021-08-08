@@ -6,7 +6,7 @@ import TaskItem from './TaskItem'
 const TaskList = () => {
     const tasks = useSelector(state => state.tasksReducer)
 
-    console.log(tasks)
+    console.log('All tasks ', tasks);
     const dispatch = useDispatch()
   
     useEffect(() => {
